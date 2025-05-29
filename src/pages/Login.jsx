@@ -8,6 +8,7 @@ import {
 
 import { auth } from "../services/firebase";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -67,6 +68,11 @@ export default function Login() {
             required
             placeholder="Mínimo 6 caracteres"
           />
+
+          <p>
+          ¿Olvidaste tu contraseña? <Link to="/recuperar">Recupérala aquí</Link>
+          </p>
+
         </div>
         <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
       </form>
