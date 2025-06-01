@@ -1,5 +1,5 @@
 import { useAuth } from "../../../context/AuthContext";
-import CerrarSesion from "./CerrarSesion";
+import CerrarSesion from "../../CerrarSesion";
 
 export default function NavAdmin() {
     const { userData } = useAuth();
@@ -7,7 +7,7 @@ export default function NavAdmin() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                
+
                 <a className="navbar-brand" href="#">Ecofood {userData?.nombre}</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
                         data-bs-target="#navbarText" aria-controls="navbarText" 
