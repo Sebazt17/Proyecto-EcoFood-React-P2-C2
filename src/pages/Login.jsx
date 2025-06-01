@@ -15,29 +15,29 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await setPersistence(auth, browserLocalPersistence);
-      const cred = await signInWithEmailAndPassword(auth, email, password);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    
+    if (!cred.user.emailVerified) {
+      Swal.fire("Verificación requerida", "Debes verificar tu correo antes de ingresar.", "warning");
+      return;
+  }
+  
+  const datos = await getUserData(cred.user.uid);
+  
+  if (datos.tipo === "admin") navigate("/admin/dashboard");
+  
+  else if (datos.tipo === "cliente") navigate("/cliente/dashboard");
+  
+  // eslint-disable-next-line no-unused-vars
 
-      // Verificar si el correo del usuario está verificado
-      if (!cred.user.emailVerified) {
-        Swal.fire(
-          "Verificación pendiente",
-          "Debes verificar tu correo antes de iniciar sesión.",
-          "warning"
-        );
-        return;
-      }
-
-      // Todo OK, continuar al home
-      Swal.fire("Bienvenido", "Has iniciado sesión correctamente", "success");
-      navigate("/home");
-    } catch (error) {
-      Swal.fire("Error", "Credenciales incorrectas o fallo de red", "error");
-    }
-  };
+  } catch (error) {
+    Swal.fire("Error", "Credenciales incorrectas", "error");
+  }
+};
 
   return (
     <div className="container mt-5">
