@@ -8,6 +8,7 @@ import {
 
 import { auth } from "../services/firebase";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,7 @@ const handleLogin = async (e) => {
     await setPersistence(auth, browserLocalPersistence);
     const cred = await signInWithEmailAndPassword(auth, email, password);
 
+
     if (!cred.user.emailVerified) {
       Swal.fire("Verificación requerida", "Debes verificar tu correo antes de ingresar.", "warning");
       return;
@@ -30,11 +32,11 @@ const handleLogin = async (e) => {
     navigate("/home");
 
     // eslint-disable-next-line no-unused-vars
+
   } catch (error) {
     Swal.fire("Error", "Credenciales incorrectas", "error");
   }
 };
-
 
   return (
     <div className="container mt-5">
@@ -65,6 +67,11 @@ const handleLogin = async (e) => {
             required
             placeholder="Mínimo 6 caracteres"
           />
+
+          <p>
+          ¿Olvidaste tu contraseña? <Link to="/recuperar">Recupérala aquí</Link>
+          </p>
+
         </div>
         <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
       </form>
